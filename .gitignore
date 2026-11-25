@@ -2,16 +2,7 @@
 node_modules/
 .pnpm-store/
 
-# Rendered video outputs
-out/*.mp4
-out/*.webm
-out/*.mov
-out/*.gif
-out/*.png
-out/*.jpg
-!out/.gitkeep
-
-# Build & caches
+# Build & caches (note: videos and images in in/, out/, public/ are NOT ignored)
 dist/
 build/
 .remotion/

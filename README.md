@@ -18,6 +18,14 @@ cd ultra-edit
 node scripts/setup.mjs
 ```
 
+## Directory Structure
+
+- `in/` — Raw input media (`videos/`, `images/`, `audio/`)
+- `public/` — Static assets for Remotion `staticFile()` & HyperFrames (`images/`, `videos/`, `audio/`, `fonts/`, `lottie/`, `models/`)
+- `out/` — Rendered video & image exports (allowed in Git; not ignored by `.gitignore`)
+- `src/` — Source code (`remotion/`, `hyperframes/`, `components/`, `styles/`, `types/`, `utils/`)
+- `scripts/` — Automation (`setup.mjs`, `doctor.mjs`)
+
 ## Useful Scripts
 
 - `npm run setup` — Automated post-clone installer (dependencies, Chromium browser, doctor check)

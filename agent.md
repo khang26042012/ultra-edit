@@ -62,17 +62,32 @@ ultra-edit/
 ├── scripts/
 │   ├── setup.mjs                      # Post-clone automated installer
 │   └── doctor.mjs                     # Environment & dependency verifier
-├── src/
-│   ├── remotion/
-│   │   ├── index.ts                   # Remotion entry point (registerRoot)
-│   │   ├── Root.tsx                   # Composition registry
-│   │   └── compositions/
-│   │       ├── UltraShowcase.tsx      # React Three Fiber + Three.js + GSAP + Remotion
-│   │       └── MotionTypography.tsx   # 2D typography & @remotion/shapes starter
-│   └── hyperframes/
-│       └── intro/
-│           └── index.html             # HyperFrames HTML/CSS + GSAP starter
-└── out/                               # Rendered MP4/WebM outputs (gitignored)
+├── in/                                # Raw input source media (footage, voiceovers, reference images)
+│   ├── videos/
+│   ├── images/
+│   └── audio/
+├── public/                            # Static assets served via Remotion staticFile() & HyperFrames
+│   ├── images/
+│   ├── videos/
+│   ├── audio/
+│   ├── fonts/
+│   ├── lottie/                        # After Effects Lottie JSON animations
+│   └── models/                        # 3D models (.glb / .gltf) for Three.js & R3F
+├── out/                               # Rendered video & image exports (tracked in Git; not ignored)
+└── src/
+    ├── components/                    # Reusable UI / 3D / motion components
+    ├── styles/                        # Shared CSS / theme tokens
+    ├── types/                         # Shared TypeScript interfaces & Zod schemas
+    ├── utils/                         # Timing, easing, FFmpeg & helper utilities
+    ├── remotion/
+    │   ├── index.ts                   # Remotion entry point (registerRoot)
+    │   ├── Root.tsx                   # Composition registry
+    │   └── compositions/
+    │       ├── UltraShowcase.tsx      # React Three Fiber + Three.js + GSAP + Remotion
+    │       └── MotionTypography.tsx   # 2D typography & @remotion/shapes starter
+    └── hyperframes/
+        └── intro/
+            └── index.html             # HyperFrames HTML/CSS + GSAP starter
 ```
 
 ---
@@ -116,6 +131,9 @@ When creating or editing compositions in this repo, AI agents MUST follow these 
 2. **Deterministic GSAP in Remotion:** Always create paused timelines (`gsap.timeline({ paused: true })`) and seek explicitly to `frame / fps` (`tl.seek(frame / fps)`), never call `tl.play()`.
 3. **3D in Remotion:** Always wrap React Three Fiber scenes in `<ThreeCanvas width={width} height={height}>` from `@remotion/three` instead of R3F's standard `<Canvas>`.
 4. **Deterministic Randomness:** Use `random("my-seed")` from `remotion` instead of `Math.random()`.
-5. **Output Directory:** Write rendered media files into `out/` (gitignored) so large binaries are never committed to Git.
+5. **Media & Output Directories:**
+   - Place raw source footage/audio/images in `in/`.
+   - Place static assets referenced by `staticFile()` (Remotion) or relative paths (HyperFrames) in `public/` (`images/`, `videos/`, `audio/`, `fonts/`, `lottie/`, `models/`).
+   - Write rendered videos and thumbnails into `out/`. Videos and images are intentionally **not** ignored by `.gitignore` so they can be committed and pushed when desired.
 6. **Type Safety:** Run `npm run typecheck` after editing TypeScript compositions before rendering.
 7. **Secrets Safety:** Never hardcode or commit API keys, GitHub tokens, or `.env` files.
