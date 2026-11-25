@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Rendered video outputs
+out/*.mp4
+out/*.webm
+out/*.mov
+out/*.gif
+out/*.png
+out/*.jpg
+!out/.gitkeep
+
+# Build & caches
+dist/
+build/
+.remotion/
+.hyperframes/
+.cache/
+
+# Environment & secrets (never commit API keys or tokens!)
+.env
+.env.*
+!.env.example
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
